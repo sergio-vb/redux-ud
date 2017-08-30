@@ -6,7 +6,13 @@ import {bindActionCreators} from  'redux';
 class BookList extends React.Component{
     renderList(){
         return this.props.books.map(book => (
-            <li key={book.title} className="list-group-item">{book.title}</li>  
+            <li 
+                key={book.title}
+                onClick={() => this.props.selectBook(book)}
+                className="list-group-item"
+            >
+                {book.title}
+            </li>  
         ));
     }
     
@@ -29,12 +35,12 @@ function mapStateToProps(state){
 //Anything returned from this function will end up as props
 //on the BookList container
 function mapDispatchToProps(dispatch){
-    //Binding the actionCreate selectBook to the dispatch,
+    //Binding the actionCreator selectBook to the dispatch,
     //so it flows through the dispatcher anytime it's called.
     return bindActionCreators({
         selectBook: selectBook
     }, dispatch);
 }
 
-//Will pass to the BookList component the state and the actionCreater as props
+//Will pass to the BookList component the state and the actionCreator as props
 export default connect(mapStateToProps, mapDispatchToProps)(BookList);
